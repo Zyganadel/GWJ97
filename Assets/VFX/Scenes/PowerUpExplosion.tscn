@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://balhaq1fq13wi"]
+
+[ext_resource type="PackedScene" uid="uid://dmdm6o81se5pl" path="res://Assets/VFX/Scenes/FeedbackTemplate.tscn" id="1_vos77"]
+[ext_resource type="Material" uid="uid://f551df4eqhyn" path="res://Assets/VFX/ProcessMaterials/PowerupProcess.tres" id="2_xll6x"]
+[ext_resource type="Material" uid="uid://4h0x5xwf53md" path="res://Assets/VFX/RenderMaterials/Smoke.tres" id="3_la65r"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_e1d0u"]
+material = ExtResource("3_la65r")
+size = Vector2(0.3, 0.3)
+
+[node name="FeedbackTemplate" unique_id=1170575207 instance=ExtResource("1_vos77")]
+
+[node name="GPUParticles3D" parent="." index="0" unique_id=39763615]
+amount = 32
+lifetime = 0.6
+explosiveness = 0.7
+process_material = ExtResource("2_xll6x")
+draw_pass_1 = SubResource("QuadMesh_e1d0u")

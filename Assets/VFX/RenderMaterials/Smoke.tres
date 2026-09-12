@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://4h0x5xwf53md"]
+
+[ext_resource type="Texture2D" uid="uid://6r30a5rgit6t" path="res://Assets/Sprite/VFX/SmokeParticle.png" id="1_p7vtd"]
+
+[resource]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_p7vtd")
+texture_filter = 0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+proximity_fade_distance = 0.25
