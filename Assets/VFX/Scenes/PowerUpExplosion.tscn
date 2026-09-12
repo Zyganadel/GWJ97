@@ -3,10 +3,68 @@
 [ext_resource type="PackedScene" uid="uid://dmdm6o81se5pl" path="res://Assets/VFX/Scenes/FeedbackTemplate.tscn" id="1_vos77"]
 [ext_resource type="Material" uid="uid://f551df4eqhyn" path="res://Assets/VFX/ProcessMaterials/PowerupProcess.tres" id="2_xll6x"]
 [ext_resource type="Material" uid="uid://4h0x5xwf53md" path="res://Assets/VFX/RenderMaterials/Smoke.tres" id="3_la65r"]
+[ext_resource type="Shader" uid="uid://bbpbny1x04m0b" path="res://Assets/VFX/Shaders/PowerUpExplosionOrb.tres" id="4_la65r"]
+[ext_resource type="Animation" uid="uid://dec8ytldvuvtb" path="res://Assets/VFX/Animations/OrbExplode.res" id="5_e1d0u"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_e1d0u"]
 material = ExtResource("3_la65r")
 size = Vector2(0.3, 0.3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e1d0u"]
+render_priority = 0
+shader = ExtResource("4_la65r")
+shader_parameter/FresnelPower = 3.0
+shader_parameter/FresnelMultiplier = 1.0
+shader_parameter/FresnelAdditive = -0.025
+shader_parameter/ColorParameter = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_j8ddb"]
+material = SubResource("ShaderMaterial_e1d0u")
+
+[sub_resource type="Animation" id="Animation_j8ddb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExplosionOrb:mesh:material:shader_parameter/FresnelMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ExplosionOrb:mesh:material:shader_parameter/FresnelAdditive")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.025]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ExplosionOrb:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w8l78"]
+_data = {
+&"OrbExplode": ExtResource("5_e1d0u"),
+&"RESET": SubResource("Animation_j8ddb")
+}
 
 [node name="FeedbackTemplate" unique_id=1170575207 instance=ExtResource("1_vos77")]
 
@@ -16,3 +74,10 @@ lifetime = 0.6
 explosiveness = 0.7
 process_material = ExtResource("2_xll6x")
 draw_pass_1 = SubResource("QuadMesh_e1d0u")
+
+[node name="ExplosionOrb" type="MeshInstance3D" parent="." index="3" unique_id=823382431]
+mesh = SubResource("SphereMesh_j8ddb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4" unique_id=1011988553]
+libraries/ = SubResource("AnimationLibrary_w8l78")
+autoplay = &"OrbExplode"
