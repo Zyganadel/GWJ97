@@ -7,6 +7,7 @@ public partial class PowerComponent : Node
 {
     // -- Events --
     public static event Action Overpowered;
+    public static event Action PowerChanged;
 
     // -- Export --
     /// <summary>
@@ -26,7 +27,11 @@ public partial class PowerComponent : Node
     public int PowerLevel
     {
         get => powerLevel;
-        private set => powerLevel = int.Max(value, 0);
+        private set
+        {
+            powerLevel = int.Max(value, 0);
+            PowerChanged?.Invoke();
+        }
     }
     
     // -- Backers --
@@ -48,7 +53,7 @@ public partial class PowerComponent : Node
     /// </summary>
     public void BumpPower()
     {
-        powerLevel++;
+        PowerLevel++;
         ticks = 0;
         if (powerLevel > maxPower) Overpowered?.Invoke();
     }
@@ -59,6 +64,6 @@ public partial class PowerComponent : Node
         ticks++;
         if (ticks < decayRate) return;
         ticks = 0;
-        powerLevel--;
+        PowerLevel--;
     }
 }
