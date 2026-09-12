@@ -6,7 +6,7 @@ namespace GWJ97.Player;
 public partial class PowerComponent : Node
 {
     // -- Events --
-    public event Action Overpowered;
+    public static event Action Overpowered;
 
     // -- Export --
     /// <summary>
