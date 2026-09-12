@@ -5,3 +5,5 @@
 *.png.import
 *.svg.import
 *.blend1
+
+.idea/
