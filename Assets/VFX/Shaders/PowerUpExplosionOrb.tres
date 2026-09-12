@@ -1,0 +1,55 @@
+[gd_resource type="VisualShader" format=3 uid="uid://bbpbny1x04m0b"]
+
+[sub_resource type="VisualShaderNodeClamp" id="VisualShaderNodeClamp_pkd1y"]
+
+[sub_resource type="VisualShaderNodeFresnel" id="VisualShaderNodeFresnel_smsqv"]
+default_input_values = [2, false, 3, 3.0]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_l5cm3"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_7d4q2"]
+parameter_name = "ColorParameter"
+
+[sub_resource type="VisualShaderNodeReroute" id="VisualShaderNodeReroute_ngs7o"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_wnc4i"]
+parameter_name = "FresnelPower"
+default_value_enabled = true
+default_value = 3.0
+
+[sub_resource type="VisualShaderNodeMultiplyAdd" id="VisualShaderNodeMultiplyAdd_ml6qn"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_snj1a"]
+parameter_name = "FresnelMultiplier"
+default_value_enabled = true
+default_value = 1.0
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_15pam"]
+parameter_name = "FresnelAdditive"
+hint = 2
+min = -1.0
+step = 0.025
+default_value_enabled = true
+default_value = -0.025
+
+[resource]
+nodes/fragment/2/node = SubResource("VisualShaderNodeFresnel_smsqv")
+nodes/fragment/2/position = Vector2(-880, 180)
+nodes/fragment/3/node = SubResource("VisualShaderNodeVectorOp_l5cm3")
+nodes/fragment/3/position = Vector2(-24.012396, 379.8615)
+nodes/fragment/4/node = SubResource("VisualShaderNodeColorParameter_7d4q2")
+nodes/fragment/4/position = Vector2(-400, 420)
+nodes/fragment/5/node = SubResource("VisualShaderNodeReroute_ngs7o")
+nodes/fragment/5/position = Vector2(-100, 200)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatParameter_wnc4i")
+nodes/fragment/6/position = Vector2(-1220, 280)
+nodes/fragment/7/node = SubResource("VisualShaderNodeMultiplyAdd_ml6qn")
+nodes/fragment/7/position = Vector2(-560, 160)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatParameter_snj1a")
+nodes/fragment/8/position = Vector2(-1220, 520)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatParameter_15pam")
+nodes/fragment/9/position = Vector2(-1220, 760)
+nodes/fragment/10/node = SubResource("VisualShaderNodeClamp_pkd1y")
+nodes/fragment/10/position = Vector2(-340, 180)
+nodes/fragment/connections = PackedInt32Array(3, 0, 0, 5, 4, 0, 3, 1, 5, 0, 0, 1, 5, 0, 3, 0, 6, 0, 2, 3, 2, 0, 7, 0, 8, 0, 7, 1, 9, 0, 7, 2, 7, 0, 10, 0, 10, 0, 5, 0)
