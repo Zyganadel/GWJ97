@@ -4,6 +4,7 @@ namespace GWJ97.Core;
 
 public partial class FeedbackSystem:Node
 {
+    // -- export --
     [Export] PackedScene foeHitScene, foeDeathScene, playerPowerUpScene, playerHitScene;
 
     // -- overrides --
@@ -21,7 +22,7 @@ public partial class FeedbackSystem:Node
     void SpawnThingy(PackedScene bla, Vector3 pos = new())
     {
         Node bla2 = bla.Instantiate();
-        // todo: hierarchy stuff go here
+        AddChild(bla2);
         if (bla2 is Node3D bla3)
         {
             bla3.Position = pos;
