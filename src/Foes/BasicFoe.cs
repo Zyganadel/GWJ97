@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using GWJ97.Core;
 using GWJ97.Damage;
 
 namespace GWJ97.Foes;
@@ -8,9 +9,6 @@ public partial class BasicFoe:Node3D
 {
     // todo: i know this bad practice, i dont give a hoot.
     public static Hurtbox playerHurtbox;
-    
-    // -- event --
-    public static event Action Died;
     
     // -- export --
     [Export] Hurtbox hurtbox;
@@ -29,8 +27,9 @@ public partial class BasicFoe:Node3D
     void HurtboxOnHitTaken()
     {
         health--;
+        EventSystem.FoeHit?.Invoke(GlobalPosition);
         if (health > 0) return;
-        Died?.Invoke();
+        EventSystem.FoeDied?.Invoke(GlobalPosition);
         QueueFree();
     }
 
