@@ -9,7 +9,7 @@ namespace GWJ97.Damage;
 public partial class Hurtbox:Area3D
 {
     public event Action HitTaken;
-    
+
     /// <summary>
     /// Used to prevent friendly fire. Assumes player will be 0, foes will be 1.
     /// See also <see cref="Hitbox.team"/>

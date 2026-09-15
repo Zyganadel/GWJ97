@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b4lww57ehve2c"]
+
+[ext_resource type="Script" uid="uid://3y8jlxw04y5y" path="res://src/Foes/BasicFoe.cs" id="1_7us8s"]
+[ext_resource type="Texture2D" uid="uid://7hdmtpfghc80" path="res://Assets/Sprite/Goomba.png" id="2_a66ge"]
+
+[node name="Enemy" type="Node3D" unique_id=1627921335]
+script = ExtResource("1_7us8s")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1317379139]
+texture_filter = 0
+texture = ExtResource("2_a66ge")

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://5co2dkfwqtmy"]
+
+[ext_resource type="PackedScene" uid="uid://b8c8e8n8tk8uj" path="res://src/Scenes/Entities/player.tscn" id="1_ofwiw"]
+[ext_resource type="PackedScene" uid="uid://b4lww57ehve2c" path="res://src/Scenes/Entities/enemy.tscn" id="2_mj803"]
+
+[sub_resource type="Gradient" id="Gradient_1sfxk"]
+colors = PackedColorArray(0.7764706, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ofwiw"]
+gradient = SubResource("Gradient_1sfxk")
+
+[node name="Test" type="Node3D" unique_id=65108183]
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1371616036]
+transform = Transform3D(20, 0, 0, 0, -8.742278e-07, -20, 0, 20, -8.742278e-07, 0, 0, 0)
+texture = SubResource("GradientTexture2D_ofwiw")
+
+[node name="Enemy" parent="." unique_id=1627921335 instance=ExtResource("2_mj803")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8380127, 0.90649414, 0)
+speed = 2.0
+
+[node name="Player" parent="." unique_id=701672155 instance=ExtResource("1_ofwiw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6521286, 0)
+moveSpeed = 10.0
+acceleration = 30.0

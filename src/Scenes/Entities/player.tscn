@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://b8c8e8n8tk8uj"]
+
+[ext_resource type="Script" uid="uid://kl57e6vft8b3" path="res://src/Scenes/Entities/Player.cs" id="1_qwtfx"]
+[ext_resource type="Texture2D" uid="uid://cj42x7ntxwetp" path="res://Assets/Sprite/Player.png" id="2_rlhq5"]
+[ext_resource type="Script" uid="uid://cjx5cgxrv5ejg" path="res://src/Damage/Hurtbox.cs" id="3_rlhq5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qwtfx"]
+radius = 0.35058594
+height = 1.3756104
+
+[node name="Player" type="Node3D" unique_id=701672155]
+script = ExtResource("1_qwtfx")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1465895011]
+texture_filter = 0
+texture = ExtResource("2_rlhq5")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=646413543]
+transform = Transform3D(1, 0, 0, 0, 0.92134154, 0.3887541, 0, -0.3887541, 0.92134154, 0, 1.120766, 1.8691542)
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=94748856]
+script = ExtResource("3_rlhq5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=1183009943]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.061584473, 0)
+shape = SubResource("CapsuleShape3D_qwtfx")
