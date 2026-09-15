@@ -16,4 +16,5 @@ texture = SubResource("GradientTexture2D_ofwiw")
 
 [node name="Player" parent="." unique_id=701672155 instance=ExtResource("1_ofwiw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6521286, 0)
-maxSpeed = 10.0
+moveSpeed = 10.0
+acceleration = 30.0
