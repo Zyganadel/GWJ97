@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b8c8e8n8tk8uj"]
+
+[ext_resource type="Script" uid="uid://kl57e6vft8b3" path="res://src/Scenes/Entities/Player.cs" id="1_qwtfx"]
+[ext_resource type="Texture2D" uid="uid://bnxut3ikjetsq" path="res://src/Assets/Sprites/Player.png" id="1_uousc"]
+
+[node name="Player" type="Node3D" unique_id=701672155]
+script = ExtResource("1_qwtfx")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1465895011]
+texture_filter = 0
+texture = ExtResource("1_uousc")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=646413543]
+transform = Transform3D(1, 0, 0, 0, 0.92134154, 0.3887541, 0, -0.3887541, 0.92134154, 0, 1.120766, 1.8691542)
