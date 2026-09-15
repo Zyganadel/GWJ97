@@ -47,6 +47,10 @@ public partial class Player : Node3D
         Vector2 movementInput = Input.GetVector("Left", "Right", "Forward", "Backward");
         velocityX = velocityChangeCalc(movementInput.X, this.velocity.X, delta);
         velocityZ = velocityChangeCalc(movementInput.Y, this.velocity.Z, delta);
+        if (velocityX == 0 && velocityZ == 0)
+        {
+            GetNode<AnimatedSprite3D>("AnimatedSprite3D").Stop();
+        }
         this.velocity = new Vector3(velocityX, this.velocity.Y, velocityZ);
         this.Position = new Vector3(this.Position.X + (float)(velocity.X * delta), this.Position.Y + (float)(velocity.Y * delta), this.Position.Z + (float)(velocity.Z * delta));
     }
@@ -59,6 +63,45 @@ public partial class Player : Node3D
     public override void _Process(double delta)
     {
         movement(delta);
+    }
+    public override void _Input(InputEvent @event) {
+        if (@event.IsActionPressed("Forward"))
+        {
+            GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Forward");
+        }
+        if (@event.IsActionPressed("Backward"))
+        {
+            GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Backward");
+        }
+        if (@event.IsActionPressed("Right"))
+        {
+            GetNode<AnimatedSprite3D>("AnimatedSprite3D").FlipH = false;
+            GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Side");
+        }
+        if (@event.IsActionPressed("Left"))
+        {
+            GetNode<AnimatedSprite3D>("AnimatedSprite3D").FlipH = true;
+            GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Side");
+        }
+        if (@event.IsReleased()) {
+            if (Input.IsActionPressed("Forward"))
+            {
+                GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Forward");
+            }
+            if (Input.IsActionPressed("Backward"))
+            {
+                GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Backward");
+            }
+            if (Input.IsActionPressed("Right"))
+            {
+                GetNode<AnimatedSprite3D>("AnimatedSprite3D").FlipH = false;
+                GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Side");
+            }
+            if (Input.IsActionPressed("Left")) {
+                GetNode<AnimatedSprite3D>("AnimatedSprite3D").FlipH = true;
+                GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Side");
+            }
+        }
     }
 
     void hurtboxOnHitTaken() {

@@ -12,8 +12,9 @@ public partial class BasicFoe:Node3D
 
     // -- export --
     [Export] Hurtbox hurtbox;
-    [Export] float speed = 1;
+    [Export] float speed = 2;
     [Export] int health = 2;
+    [Export] PackedScene attackScene;
 
     // -- prop --
 
@@ -33,6 +34,11 @@ public partial class BasicFoe:Node3D
         QueueFree();
     }
 
+    void Attack() {
+        var attackInstance = attackScene.Instantiate();
+        GetParent().AddChild(attackInstance);
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         //Pretty sure this is a dumb way to give them the player hurtbox but oh well.
@@ -48,10 +54,8 @@ public partial class BasicFoe:Node3D
         var e = GlobalPosition;
         var p = playerHurtbox.GlobalPosition;
         var vector = (e - p);
-        if (vector.Length() < speed * delta)
+        if (vector.Length() < 0.3)
         {
-            //This could just be return to keep position because we don't want enemies all in the same position
-            GlobalPosition = playerHurtbox.GlobalPosition;
             return;
         }
         var vectorNorm = vector.Normalized();
