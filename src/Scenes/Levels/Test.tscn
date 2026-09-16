@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b8c8e8n8tk8uj" path="res://src/Scenes/Entities/player.tscn" id="1_ofwiw"]
 [ext_resource type="PackedScene" uid="uid://b4lww57ehve2c" path="res://src/Scenes/Entities/enemy.tscn" id="2_mj803"]
+[ext_resource type="PackedScene" uid="uid://bq7sstk8x0vse" path="res://Assets/Blender/SpaghettiGround.blend" id="3_jib8t"]
 
 [sub_resource type="Gradient" id="Gradient_1sfxk"]
 colors = PackedColorArray(0.7764706, 0, 0, 1, 1, 1, 1, 1)
@@ -13,6 +14,7 @@ gradient = SubResource("Gradient_1sfxk")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1371616036]
 transform = Transform3D(20, 0, 0, 0, -8.742278e-07, -20, 0, 20, -8.742278e-07, 0, 0, 0)
+visible = false
 texture = SubResource("GradientTexture2D_ofwiw")
 
 [node name="Enemy" parent="." unique_id=1627921335 instance=ExtResource("2_mj803")]
@@ -23,3 +25,5 @@ speed = 2.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68679607, 0)
 moveSpeed = 10.0
 acceleration = 30.0
+
+[node name="SpaghettiGround" parent="." unique_id=1893207658 instance=ExtResource("3_jib8t")]
