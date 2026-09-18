@@ -24,7 +24,7 @@ public partial class FeedbackSystem:Node
 
     void Overpowered(Vector3 pos, Vector3 rot)
     {
-        throw new System.NotImplementedException();
+        GD.PrintErr(new System.NotImplementedException());
     }
 
     void FoeDied(Vector3 pos, Vector3 rot)
