@@ -1,12 +1,15 @@
 using System;
 using Godot;
+using GWJ97.Core;
 
 namespace GWJ97.Player;
 
-public partial class PowerComponent : Node
+public partial class PowerComponent : Node3D
 {
     // -- Events --
+    [Obsolete("Use EventSystem.Overpowered instead.")]
     public static event Action Overpowered;
+    [Obsolete("Use EventSystem.PowerChanged instead.")]
     public static event Action PowerChanged;
 
     // -- Export --
@@ -30,7 +33,7 @@ public partial class PowerComponent : Node
         private set
         {
             powerLevel = int.Max(value, 0);
-            PowerChanged?.Invoke();
+            EventSystem.PowerChanged?.Invoke(GlobalPosition);
         }
     }
     
@@ -55,7 +58,7 @@ public partial class PowerComponent : Node
     {
         PowerLevel++;
         ticks = 0;
-        if (powerLevel > maxPower) Overpowered?.Invoke();
+        if (powerLevel > maxPower) EventSystem.Overpowered?.Invoke(GlobalPosition);
     }
 
     // Check how long its been since we updated power level. if greater than decay rate, drop power by 1.
