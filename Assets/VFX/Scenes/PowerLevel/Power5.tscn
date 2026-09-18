@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://0xi1bdepfglv"]
+
+[ext_resource type="Material" uid="uid://cf6xbd2gdde30" path="res://Assets/VFX/ProcessMaterials/Fire1Process.tres" id="1_ad7ir"]
+[ext_resource type="Material" uid="uid://4h0x5xwf53md" path="res://Assets/VFX/RenderMaterials/Smoke.tres" id="2_3nfnq"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_x3vv6"]
+material = ExtResource("2_3nfnq")
+size = Vector2(0.2, 0.2)
+
+[node name="FireContinuous" type="GPUParticles3D" unique_id=1130231800]
+amount = 16
+lifetime = 2.0
+process_material = ExtResource("1_ad7ir")
+draw_pass_1 = SubResource("QuadMesh_x3vv6")
+
+[connection signal="tree_entered" from="." to="." method="set_emitting" binds= [true]]
