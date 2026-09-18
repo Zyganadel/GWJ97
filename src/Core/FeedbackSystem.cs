@@ -5,13 +5,26 @@ namespace GWJ97.Core;
 public partial class FeedbackSystem:Node
 {
     // -- export --
-    [Export] PackedScene foeHitScene, foeDeathScene, playerPowerUpScene, playerHitScene;
+    [Export] PackedScene foeHitScene, foeDeathScene, playerPowerUpScene, playerHitScene, fireballScene;
 
     // -- overrides --
     public override void _Ready()
     {
+        EventSystem.PowerChanged += PowerChanged;
+        EventSystem.Overpowered += Overpowered;
         EventSystem.FoeDied += FoeDied;
         EventSystem.FoeHit += FoeHit;
+        EventSystem.FireballUsed += FireballUsed;
+    }
+
+    void PowerChanged(Vector3 pos, Vector3 rot)
+    {
+        SpawnThingy(playerPowerUpScene);
+    }
+
+    void Overpowered(Vector3 pos, Vector3 rot)
+    {
+        throw new System.NotImplementedException();
     }
 
     void FoeDied(Vector3 pos, Vector3 rot)
@@ -22,6 +35,11 @@ public partial class FeedbackSystem:Node
     void FoeHit(Vector3 pos, Vector3 rot)
     {
         SpawnThingy(foeHitScene, pos, rot);
+    }
+
+    void FireballUsed(Vector3 pos, Vector3 rot)
+    {
+        SpawnThingy(fireballScene, pos, rot);
     }
     
     // -- helpers --

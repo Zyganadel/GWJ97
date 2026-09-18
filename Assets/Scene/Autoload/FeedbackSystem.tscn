@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://bhjos6n4l2hed"]
 
 [ext_resource type="Script" uid="uid://b8bo3eb8swprj" path="res://src/Core/FeedbackSystem.cs" id="1_l0iiq"]
+[ext_resource type="PackedScene" path="res://Assets/VFX/Scenes/FoeDied.tscn" id="2_qc58r"]
+[ext_resource type="PackedScene" uid="uid://cfl25lw16qw2e" path="res://Assets/VFX/Scenes/Fireball.tscn" id="3_s10nq"]
 
 [node name="FeedbackSystem" type="Node" unique_id=852043652]
 script = ExtResource("1_l0iiq")
+foeDeathScene = ExtResource("2_qc58r")
+fireballScene = ExtResource("3_s10nq")
