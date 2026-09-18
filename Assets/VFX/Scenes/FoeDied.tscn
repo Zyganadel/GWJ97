@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bwsg841ht08b8"]
+
+[ext_resource type="PackedScene" uid="uid://dmdm6o81se5pl" path="res://Assets/VFX/Scenes/FeedbackTemplate.tscn" id="1_1buap"]
+[ext_resource type="Material" uid="uid://dxakqk37eiy10" path="res://Assets/VFX/ProcessMaterials/AshProcess.tres" id="2_1buap"]
+[ext_resource type="Material" uid="uid://4h0x5xwf53md" path="res://Assets/VFX/RenderMaterials/Smoke.tres" id="3_3aaxv"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_x3vv6"]
+material = ExtResource("3_3aaxv")
+size = Vector2(0.35, 0.35)
+
+[node name="Ashes" unique_id=1170575207 instance=ExtResource("1_1buap")]
+
+[node name="GPUParticles3D" parent="." index="0" unique_id=39763615]
+emitting = false
+amount = 16
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.7
+process_material = ExtResource("2_1buap")
+draw_pass_1 = SubResource("QuadMesh_x3vv6")
+
+[node name="Timer" parent="." index="2" unique_id=1693201381]
+wait_time = 2.6
+
+[connection signal="tree_entered" from="GPUParticles3D" to="GPUParticles3D" method="set_emitting" binds= [true]]
