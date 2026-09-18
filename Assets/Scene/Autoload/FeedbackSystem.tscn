@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bhjos6n4l2hed"]
+
+[ext_resource type="Script" uid="uid://b8bo3eb8swprj" path="res://src/Core/FeedbackSystem.cs" id="1_l0iiq"]
+
+[node name="FeedbackSystem" type="Node" unique_id=852043652]
+script = ExtResource("1_l0iiq")

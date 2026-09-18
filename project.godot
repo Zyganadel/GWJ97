@@ -16,7 +16,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-FeedbackSystem="*uid://b8bo3eb8swprj"
+FeedbackSystem="*uid://bhjos6n4l2hed"
 
 [display]
 
