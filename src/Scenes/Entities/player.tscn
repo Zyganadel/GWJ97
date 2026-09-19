@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://kl57e6vft8b3" path="res://src/Scenes/Entities/Player.cs" id="1_qwtfx"]
 [ext_resource type="Texture2D" uid="uid://cj42x7ntxwetp" path="res://Assets/Sprite/Player.png" id="2_rlhq5"]
 [ext_resource type="Script" uid="uid://cjx5cgxrv5ejg" path="res://src/Damage/Hurtbox.cs" id="3_rlhq5"]
+[ext_resource type="Script" uid="uid://olpfqbabnyhe" path="res://src/Player/PowerComponent.cs" id="4_xgn1b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qrt6f"]
 atlas = ExtResource("2_rlhq5")
@@ -230,3 +231,6 @@ script = ExtResource("3_rlhq5")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=1183009943]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.061584473, 0)
 shape = SubResource("CapsuleShape3D_qwtfx")
+
+[node name="PowerComponent" type="Node" parent="." unique_id=513737327]
+script = ExtResource("4_xgn1b")

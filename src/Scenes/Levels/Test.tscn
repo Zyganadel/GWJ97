@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b8c8e8n8tk8uj" path="res://src/Scenes/Entities/player.tscn" id="1_ofwiw"]
 [ext_resource type="PackedScene" uid="uid://b4lww57ehve2c" path="res://src/Scenes/Entities/enemy.tscn" id="2_mj803"]
+[ext_resource type="PackedScene" uid="uid://djd2sjybpn446" path="res://src/Scenes/hud.tscn" id="3_jib8t"]
 
 [sub_resource type="Gradient" id="Gradient_1sfxk"]
 colors = PackedColorArray(0.7764706, 0, 0, 1, 1, 1, 1, 1)
@@ -17,9 +18,10 @@ texture = SubResource("GradientTexture2D_ofwiw")
 
 [node name="Enemy" parent="." unique_id=1627921335 instance=ExtResource("2_mj803")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8380127, 0.90649414, 0)
-speed = 2.0
 
 [node name="Player" parent="." unique_id=701672155 instance=ExtResource("1_ofwiw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68679607, 0)
 moveSpeed = 10.0
 acceleration = 30.0
+
+[node name="HUD" parent="." unique_id=1955072417 instance=ExtResource("3_jib8t")]

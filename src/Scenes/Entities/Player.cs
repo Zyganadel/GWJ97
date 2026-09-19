@@ -2,6 +2,7 @@ using Godot;
 using System;
 using GWJ97.Core;
 using GWJ97.Damage;
+using GWJ97.Player;
 
 public partial class Player : Node3D
 {
@@ -82,6 +83,9 @@ public partial class Player : Node3D
         {
             GetNode<AnimatedSprite3D>("AnimatedSprite3D").FlipH = true;
             GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Side");
+        }
+        if (@event.IsActionPressed("Bump Power")) {
+            GetNode<PowerComponent>("PowerComponent").BumpPower();
         }
         if (@event.IsReleased()) {
             if (Input.IsActionPressed("Forward"))
