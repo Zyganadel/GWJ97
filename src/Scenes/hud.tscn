@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://djd2sjybpn446"]
+
+[ext_resource type="Script" uid="uid://xig3hg70xj2u" path="res://src/GDScript/power_health_label.gd" id="1_hls57"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hrsu0"]
+font_size = 48
+
+[node name="HUD" type="CanvasLayer" unique_id=1955072417]
+
+[node name="PowerHealth" type="Label" parent="." unique_id=1729905296]
+offset_left = 57.0
+offset_top = 949.0
+offset_right = 239.0
+offset_bottom = 1026.0
+label_settings = SubResource("LabelSettings_hrsu0")
+script = ExtResource("1_hls57")

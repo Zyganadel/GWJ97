@@ -1,11 +1,23 @@
 [gd_scene format=3 uid="uid://b4lww57ehve2c"]
 
 [ext_resource type="Script" uid="uid://3y8jlxw04y5y" path="res://src/Foes/BasicFoe.cs" id="1_7us8s"]
-[ext_resource type="Texture2D" uid="uid://7hdmtpfghc80" path="res://Assets/Sprite/Goomba.png" id="2_a66ge"]
+[ext_resource type="Texture2D" uid="uid://txdkt4as241h" path="res://Assets/Sprite/Goomba.png" id="2_a66ge"]
+[ext_resource type="Script" uid="uid://cjx5cgxrv5ejg" path="res://src/Damage/Hurtbox.cs" id="3_g5wof"]
 
-[node name="Enemy" type="Node3D" unique_id=1627921335]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a66ge"]
+radius = 0.460083
+height = 0.920166
+
+[node name="Enemy" type="Node3D" unique_id=1627921335 node_paths=PackedStringArray("hurtbox")]
 script = ExtResource("1_7us8s")
+hurtbox = NodePath("Hurtbox")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1317379139]
 texture_filter = 0
 texture = ExtResource("2_a66ge")
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=1743806922]
+script = ExtResource("3_g5wof")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=2086320445]
+shape = SubResource("CapsuleShape3D_a66ge")

@@ -25,9 +25,9 @@ public partial class BasicFoe:Node3D
         hurtbox.HitTaken += HurtboxOnHitTaken;
     }
 
-    void HurtboxOnHitTaken()
+    void HurtboxOnHitTaken(int damage)
     {
-        health--;
+        health -= damage;
         EventSystem.FoeHit?.Invoke(GlobalPosition);
         if (health > 0) return;
         EventSystem.FoeDied?.Invoke(GlobalPosition);
