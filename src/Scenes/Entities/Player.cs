@@ -10,11 +10,15 @@ public partial class Player : Node3D
     [Export] double acceleration;
     [Export] int health;
 
+    [Export] PackedScene punchScene;
+
     public Hurtbox hurtbox;
 
     private Vector3 velocity;
 
-//Runs twice per frame for the X and Z axis velocities. calculates velocity based on previous frame and current buttons pressed.
+    private Vector2 direction = new Vector2(0, 0);
+
+    //Runs twice per frame for the X and Z axis velocities. calculates velocity based on previous frame and current buttons pressed.
     private float velocityChangeCalc(float movementInput, float currentVelocity, double delta)
     {
         float velocity = 0;
@@ -46,6 +50,9 @@ public partial class Player : Node3D
         float velocityX;
         float velocityZ;
         Vector2 movementInput = Input.GetVector("Left", "Right", "Forward", "Backward");
+        if (movementInput != Vector2.Zero) {
+            direction = movementInput;
+        }
         velocityX = velocityChangeCalc(movementInput.X, this.velocity.X, delta);
         velocityZ = velocityChangeCalc(movementInput.Y, this.velocity.Z, delta);
         if (velocityX == 0 && velocityZ == 0)
@@ -58,8 +65,8 @@ public partial class Player : Node3D
     public override void _Ready()
     {
         this.velocity = new Vector3(0, 0, 0);
-        hurtbox.HitTaken += hurtboxOnHitTaken;
         hurtbox = GetNode<Hurtbox>("Hurtbox");
+        hurtbox.HitTaken += hurtboxOnHitTaken;
     }
     public override void _Process(double delta)
     {
@@ -84,8 +91,19 @@ public partial class Player : Node3D
             GetNode<AnimatedSprite3D>("AnimatedSprite3D").FlipH = true;
             GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Side");
         }
-        if (@event.IsActionPressed("Bump Power")) {
+        if (@event.IsActionPressed("Bump Power"))
+        {
             GetNode<PowerComponent>("PowerComponent").BumpPower();
+        }
+        if (@event.IsActionPressed("Ability1")) {
+            if (GetNode<PowerComponent>("PowerComponent").PowerLevel < 2) {
+                Node3D punchInstance = (Node3D)punchScene.Instantiate();
+                punchInstance.Position = new Vector3((float)(0.35 * direction.X), 0, (float)(0.35 * direction.Y));
+                AddChild(punchInstance);
+            } else {
+
+            }
+
         }
         if (@event.IsReleased()) {
             if (Input.IsActionPressed("Forward"))
@@ -108,7 +126,9 @@ public partial class Player : Node3D
         }
     }
 
-    void hurtboxOnHitTaken() {
+    void hurtboxOnHitTaken(int damage)
+    {
         GD.Print("Player Hit");
     }
+
 }

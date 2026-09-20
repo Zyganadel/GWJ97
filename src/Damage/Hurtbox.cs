@@ -8,7 +8,7 @@ namespace GWJ97.Damage;
 /// </summary>
 public partial class Hurtbox:Area3D
 {
-    public event Action HitTaken;
+    public event Action<int> HitTaken;
 
     /// <summary>
     /// Used to prevent friendly fire. Assumes player will be 0, foes will be 1.
@@ -19,8 +19,8 @@ public partial class Hurtbox:Area3D
     /// <summary>
     /// Causes this hurtbox to take damage.
     /// </summary>
-    public void TakeHit()
+    public void TakeHit(int damage)
     {
-        HitTaken?.Invoke();
+        HitTaken?.Invoke(damage);
     }
 }

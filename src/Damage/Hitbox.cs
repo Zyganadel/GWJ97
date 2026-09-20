@@ -11,7 +11,9 @@ public partial class Hitbox:Area3D
     /// Used to prevent friendly fire. Assumes player will be 0, foes will be 1.
     /// See also <see cref="Hurtbox.team"/>
     /// </summary>
-    [Export] public int team=1;
+    [Export] public int team = 1;
+
+    protected int damage = 0;
 
     public override void _Ready()
     {
@@ -22,6 +24,6 @@ public partial class Hitbox:Area3D
     {
         if (area is not Hurtbox target) return;
         if (target.team == team) return;
-        target.TakeHit();
+        target.TakeHit(damage);
     }
 }

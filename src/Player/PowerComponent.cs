@@ -33,7 +33,7 @@ public partial class PowerComponent : Node
         {
             powerLevel = int.Max(value, 0);
             PowerChanged?.Invoke();
-            EmitSignal(SignalName.powerChanged, value);     //This is absolutely redundant with the above line i just dont know how events work and i wrote the reciever in gdscript
+            EmitSignal(SignalName.powerChanged, powerLevel);     //This is absolutely redundant with the above line i just dont know how events work and i wrote the reciever in gdscript
         }
     }
 
