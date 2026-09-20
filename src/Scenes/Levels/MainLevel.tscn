@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://uw38o6fk8fto"]
+
+[ext_resource type="PackedScene" uid="uid://b8c8e8n8tk8uj" path="res://src/Scenes/Entities/player.tscn" id="1_bdodu"]
+[ext_resource type="Script" uid="uid://bru32qi83l2ii" path="res://src/Scenes/Levels/main_level.gd" id="1_nbeho"]
+[ext_resource type="PackedScene" uid="uid://c2wfrufsrrbo2" path="res://src/Scenes/PlayerAttacks/punch.tscn" id="2_ctudt"]
+[ext_resource type="PackedScene" uid="uid://cyo11ju4g41w1" path="res://src/Scenes/PlayerAttacks/tentacle_swipe.tscn" id="3_nbeho"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_el1p1"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_bdodu"]
+sky_material = SubResource("ProceduralSkyMaterial_el1p1")
+
+[sub_resource type="Environment" id="Environment_gre5a"]
+background_mode = 2
+sky = SubResource("Sky_bdodu")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="MainLevel" type="Node3D" unique_id=1541947679]
+script = ExtResource("1_nbeho")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1101551454]
+environment = SubResource("Environment_gre5a")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=358145664]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=701672155 instance=ExtResource("1_bdodu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3454246, 0)
+moveSpeed = 10.0
+acceleration = 30.0
+punchScene = ExtResource("2_ctudt")
+tentacleSwipeScene = ExtResource("3_nbeho")

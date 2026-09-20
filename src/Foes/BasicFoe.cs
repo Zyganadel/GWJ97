@@ -28,9 +28,9 @@ public partial class BasicFoe:Node3D
     void HurtboxOnHitTaken(int damage)
     {
         health -= damage;
-        EventSystem.FoeHit?.Invoke(GlobalPosition);
+        //EventSystem.FoeHit?.Invoke(GlobalPosition);
         if (health > 0) return;
-        EventSystem.FoeDied?.Invoke(GlobalPosition);
+        //EventSystem.FoeDied?.Invoke(GlobalPosition);
         QueueFree();
     }
 
