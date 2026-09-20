@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using GWJ97.Core;
 using GWJ97.Damage;
 using GWJ97.Player;
@@ -21,6 +22,15 @@ public partial class Player : Node3D
     private bool attacking = false;
 
     private AnimatedSprite3D sprite;
+    private AnimatedSprite3D tentacleSprite;
+    private PowerComponent powerComponent;
+
+    Dictionary<string, Vector3> tentaclePositions = new Dictionary<string, Vector3> {
+        {"Forward", new Vector3((float)-0.02, (float)0.18, (float)0)},
+        {"Backward", new Vector3((float)0.0003, (float)0.238, (float)0.002)},
+        {"Right", new Vector3((float)-0.17, (float)0.238, (float)0.002)},
+        {"Left", new Vector3((float)0.178, (float)0.221, (float)-0.085)}
+    };
 
     //Runs twice per frame for the X and Z axis velocities. calculates velocity based on previous frame and current buttons pressed.
     private float velocityChangeCalc(float movementInput, float currentVelocity, double delta)
@@ -61,6 +71,34 @@ public partial class Player : Node3D
         String animation = currentAnimationSplit[0] + " " + appendedString;
         sprite.Play(animation);
     }
+    void updateTentacleDir(string playerFacing)
+    {
+        tentacleSprite.Position = tentaclePositions[playerFacing];
+        if (playerFacing == "Backward" || playerFacing == "Left")
+        {
+            tentacleSprite.FlipH = true;
+        }
+        else
+        {
+            tentacleSprite.FlipH = false;
+        }
+        string animationDirection = playerFacing;
+        if (animationDirection == "Left" || animationDirection == "Right")
+        {
+            animationDirection = "Side";
+        }
+        tentacleSprite.Animation = animationDirection + " Swipe";
+    }
+
+    private void onPowerChanged() {
+        if (powerComponent.PowerLevel > 1) {
+            tentacleSprite.Visible = true;
+            string currentAnimation = sprite.Animation;
+        } else {
+            tentacleSprite.Visible = false;
+        }
+    }
+
 
     private void movement(double delta) {
         float velocityX;
@@ -84,6 +122,10 @@ public partial class Player : Node3D
         hurtbox = GetNode<Hurtbox>("Hurtbox");
         hurtbox.HitTaken += hurtboxOnHitTaken;
         sprite = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
+        tentacleSprite = GetNode<AnimatedSprite3D>("TentacleSprite");
+        powerComponent = GetNode<PowerComponent>("PowerComponent");
+        PowerComponent.PowerChanged += onPowerChanged;
+
     }
     public override void _Process(double delta)
     {
@@ -93,44 +135,56 @@ public partial class Player : Node3D
         if (@event.IsActionPressed("Forward"))
         {
             sprite.Play("Forward Walk");
+            sprite.FlipH = false;
+            updateTentacleDir("Forward");
         }
         if (@event.IsActionPressed("Backward"))
         {
             sprite.Play("Backward Walk");
+            sprite.FlipH = false;
+            updateTentacleDir("Backward");
         }
         if (@event.IsActionPressed("Right"))
         {
             sprite.FlipH = false;
             sprite.Play("Side Walk");
+            updateTentacleDir("Right");
         }
         if (@event.IsActionPressed("Left"))
         {
             sprite.FlipH = true;
             sprite.Play("Side Walk");
+            updateTentacleDir("Left");
         }
         if (@event.IsActionPressed("Bump Power"))
         {
-            GetNode<PowerComponent>("PowerComponent").BumpPower();
+            powerComponent.BumpPower();
         }
         if (@event.IsActionReleased("Forward") || @event.IsActionReleased("Backward") || @event.IsActionReleased("Right") || @event.IsActionReleased("Left"))
         {
             if (Input.IsActionPressed("Forward"))
             {
                 sprite.Play("Forward Walk");
+                sprite.FlipH = false;
+                updateTentacleDir("Forward");
             }
             if (Input.IsActionPressed("Backward"))
             {
                 sprite.Play("Backward Walk");
+                sprite.FlipH = false;
+                updateTentacleDir("Backward");
             }
             if (Input.IsActionPressed("Right"))
             {
                 sprite.FlipH = false;
                 sprite.Play("Side Walk");
+                updateTentacleDir("Right");
             }
             if (Input.IsActionPressed("Left"))
             {
                 sprite.FlipH = true;
                 sprite.Play("Side Walk");
+                updateTentacleDir("Left");
             }
         }
         if (!GetNode<Timer>("AttackCooldown").IsStopped() || attacking)
@@ -139,7 +193,7 @@ public partial class Player : Node3D
         }
         if (@event.IsActionPressed("Ability1")) {
             attacking = true;
-            if (GetNode<PowerComponent>("PowerComponent").PowerLevel < 2) {
+            if (powerComponent.PowerLevel < 2) {
                 Node3D punchInstance = (Node3D)punchScene.Instantiate();
                 punchInstance.Position = new Vector3((float)(0.35 * direction.X), 0, (float)(0.35 * direction.Y));
                 AddChild(punchInstance);
