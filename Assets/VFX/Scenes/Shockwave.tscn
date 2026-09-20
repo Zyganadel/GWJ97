@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://bsttuq45061ta"]
+
+[ext_resource type="PackedScene" uid="uid://dmdm6o81se5pl" path="res://Assets/VFX/Scenes/FeedbackTemplate.tscn" id="1_s255b"]
+[ext_resource type="Shader" uid="uid://bbpbny1x04m0b" path="res://Assets/VFX/Shaders/PowerUpExplosionOrb.tres" id="2_n3dlf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ydnvr"]
+render_priority = 0
+shader = ExtResource("2_n3dlf")
+shader_parameter/FresnelPower = 1.0
+shader_parameter/FresnelMultiplier = 3.0
+shader_parameter/FresnelAdditive = -0.34999999031422
+shader_parameter/ColorParameter = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_4oeb4"]
+material = SubResource("ShaderMaterial_ydnvr")
+
+[sub_resource type="Animation" id="Animation_8kx2y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:mesh:material:shader_parameter/FresnelPower")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:mesh:material:shader_parameter/FresnelAdditive")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.34999999031422]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:mesh:material:shader_parameter/FresnelMultiplier")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.0]
+}
+
+[sub_resource type="Animation" id="Animation_a1bnp"]
+resource_name = "Shockwave"
+length = 1.0000033
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.01, 0.01, 0.01), Vector3(1, 1, 1), Vector3(5, 0.25, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:mesh:material:shader_parameter/FresnelPower")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.33333334, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 1.5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:mesh:material:shader_parameter/FresnelAdditive")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.33333334, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.025, -0.34999999031422]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:mesh:material:shader_parameter/FresnelMultiplier")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.33333334, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 3.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c7o0w"]
+_data = {
+&"RESET": SubResource("Animation_8kx2y"),
+&"Shockwave": SubResource("Animation_a1bnp")
+}
+
+[node name="Shockwave" unique_id=1170575207 instance=ExtResource("1_s255b")]
+
+[node name="GPUParticles3D" parent="." index="0" unique_id=39763615]
+visible = false
+
+[node name="ExplosionOrb" type="MeshInstance3D" parent="." index="3" unique_id=1803574519]
+mesh = SubResource("SphereMesh_4oeb4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ExplosionOrb" index="0" unique_id=448418927]
+libraries/ = SubResource("AnimationLibrary_c7o0w")
+
+[connection signal="ready" from="GPUParticles3D" to="." method="queue_free"]
