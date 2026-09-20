@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cyo11ju4g41w1"]
+
+[ext_resource type="Script" uid="uid://dan4i82j5f747" path="res://src/Scenes/PlayerAttacks/TentacleSwipe.cs" id="1_1svs3"]
+[ext_resource type="Script" uid="uid://btctxnadio21g" path="res://src/GDScript/SelfDeletingAttack.gd" id="1_a0plf"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a0plf"]
+radius = 0.31
+height = 1.237
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dj3c2"]
+radius = 0.3095703
+height = 1.2374699
+
+[node name="TentacleSwipe" type="Node3D" unique_id=734830920]
+script = ExtResource("1_a0plf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1565545933]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.312, 0, 0)
+visible = false
+transparency = 0.36
+mesh = SubResource("CapsuleMesh_a0plf")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=1204438242]
+script = ExtResource("1_1svs3")
+team = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1647942899]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.31180477, 0, 0)
+shape = SubResource("CapsuleShape3D_dj3c2")
+
+[node name="Timer" type="Timer" parent="." unique_id=1751943910]
+wait_time = 0.5
+autostart = true
+
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="OnAreaEntered"]

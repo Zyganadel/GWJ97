@@ -12,6 +12,7 @@ public partial class Player : Node3D
     [Export] int health;
 
     [Export] PackedScene punchScene;
+    [Export] PackedScene tentacleSwipeScene;
 
     public Hurtbox hurtbox;
 
@@ -165,7 +166,7 @@ public partial class Player : Node3D
             if (Input.IsActionPressed("Forward"))
             {
                 sprite.Play("Forward Walk");
-                sprite.FlipH = false;
+                sprite.FlipH = false;	// Called when the node enters the scene tree for the first time.
                 updateTentacleDir("Forward");
             }
             if (Input.IsActionPressed("Backward"))
@@ -201,7 +202,13 @@ public partial class Player : Node3D
                 this.velocity = Vector3.Zero;
                 this.acceleration = 0.2 * this.acceleration;
             } else {
-
+                Node3D tentacleSwipeInstance = (Node3D)tentacleSwipeScene.Instantiate();
+                tentacleSwipeInstance.Position = new Vector3((float)(0.35) * direction.X, 0, (float)(0.35 * direction.Y));
+                tentacleSwipeInstance.Rotation = new Vector3(0, -direction.Angle(), 0);
+                AddChild(tentacleSwipeInstance);
+                tentacleSprite.Play();
+                this.velocity = Vector3.Zero;
+                this.acceleration = 0.2 * this.acceleration;
             }
 
         }

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b4lww57ehve2c" path="res://src/Scenes/Entities/enemy.tscn" id="2_mj803"]
 [ext_resource type="PackedScene" uid="uid://djd2sjybpn446" path="res://src/Scenes/hud.tscn" id="3_jib8t"]
 [ext_resource type="PackedScene" uid="uid://c2wfrufsrrbo2" path="res://src/Scenes/PlayerAttacks/punch.tscn" id="3_n5lwl"]
+[ext_resource type="PackedScene" uid="uid://cyo11ju4g41w1" path="res://src/Scenes/PlayerAttacks/tentacle_swipe.tscn" id="4_u4ecn"]
 
 [sub_resource type="Gradient" id="Gradient_1sfxk"]
 colors = PackedColorArray(0.7764706, 0, 0, 1, 1, 1, 1, 1)
@@ -25,5 +26,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68679607, 0)
 moveSpeed = 10.0
 acceleration = 30.0
 punchScene = ExtResource("3_n5lwl")
+tentacleSwipeScene = ExtResource("4_u4ecn")
 
 [node name="HUD" parent="." unique_id=1955072417 instance=ExtResource("3_jib8t")]
