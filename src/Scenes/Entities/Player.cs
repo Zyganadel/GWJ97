@@ -50,11 +50,15 @@ public partial class Player : Node3D
         return velocity;
     }
 
-    private void playCurrentIdleAnimation() {
-        if (this.velocity.Length() == 0) {
+    private void updateCurrentAnimation(string appendedString)
+    {
+        string currentAnimation = sprite.Animation;
+        if (currentAnimation.Contains(appendedString))
+        {
             return;
         }
-        String animation = sprite.Animation + " Idle";
+        string[] currentAnimationSplit = currentAnimation.Split(" ");
+        String animation = currentAnimationSplit[0] + " " + appendedString;
         sprite.Play(animation);
     }
 
@@ -67,9 +71,9 @@ public partial class Player : Node3D
         }
         velocityX = velocityChangeCalc(movementInput.X, this.velocity.X, delta);
         velocityZ = velocityChangeCalc(movementInput.Y, this.velocity.Z, delta);
-        if (velocityX == 0 && velocityZ == 0)
+        if (velocityX == 0 && velocityZ == 0 && !attacking)
         {
-            playCurrentIdleAnimation();
+            updateCurrentAnimation("Idle");
         }
         this.velocity = new Vector3(velocityX, this.velocity.Y, velocityZ);
         this.Position = new Vector3(this.Position.X + (float)(velocity.X * delta), this.Position.Y + (float)(velocity.Y * delta), this.Position.Z + (float)(velocity.Z * delta));
@@ -88,45 +92,45 @@ public partial class Player : Node3D
     public override void _Input(InputEvent @event) {
         if (@event.IsActionPressed("Forward"))
         {
-            sprite.Play("Forward");
+            sprite.Play("Forward Walk");
         }
         if (@event.IsActionPressed("Backward"))
         {
-            sprite.Play("Backward");
+            sprite.Play("Backward Walk");
         }
         if (@event.IsActionPressed("Right"))
         {
             sprite.FlipH = false;
-            sprite.Play("Side");
+            sprite.Play("Side Walk");
         }
         if (@event.IsActionPressed("Left"))
         {
             sprite.FlipH = true;
-            sprite.Play("Side");
+            sprite.Play("Side Walk");
         }
         if (@event.IsActionPressed("Bump Power"))
         {
             GetNode<PowerComponent>("PowerComponent").BumpPower();
         }
-        if (@event.IsReleased())
+        if (@event.IsActionReleased("Forward") || @event.IsActionReleased("Backward") || @event.IsActionReleased("Right") || @event.IsActionReleased("Left"))
         {
             if (Input.IsActionPressed("Forward"))
             {
-                sprite.Play("Forward");
+                sprite.Play("Forward Walk");
             }
             if (Input.IsActionPressed("Backward"))
             {
-                sprite.Play("Backward");
+                sprite.Play("Backward Walk");
             }
             if (Input.IsActionPressed("Right"))
             {
                 sprite.FlipH = false;
-                sprite.Play("Side");
+                sprite.Play("Side Walk");
             }
             if (Input.IsActionPressed("Left"))
             {
                 sprite.FlipH = true;
-                sprite.Play("Side");
+                sprite.Play("Side Walk");
             }
         }
         if (!GetNode<Timer>("AttackCooldown").IsStopped() || attacking)
@@ -139,6 +143,9 @@ public partial class Player : Node3D
                 Node3D punchInstance = (Node3D)punchScene.Instantiate();
                 punchInstance.Position = new Vector3((float)(0.35 * direction.X), 0, (float)(0.35 * direction.Y));
                 AddChild(punchInstance);
+                updateCurrentAnimation("Punch");
+                this.velocity = Vector3.Zero;
+                this.acceleration = 0.2 * this.acceleration;
             } else {
 
             }
@@ -154,6 +161,12 @@ public partial class Player : Node3D
     void onAttackTimout() {
         GetNode<Timer>("AttackCooldown").Start(0.5);
         attacking = false;
+        this.acceleration = 5 * this.acceleration;
+        if (this.velocity == Vector3.Zero) {
+            updateCurrentAnimation("Idle");
+        } else {
+            updateCurrentAnimation("Walk");
+        }
     }
 
 }
