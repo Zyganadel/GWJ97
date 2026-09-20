@@ -5,7 +5,13 @@ namespace GWJ97.Core;
 public partial class FeedbackSystem:Node
 {
     // -- export --
-    [Export] PackedScene foeHitScene, foeDeathScene, playerPowerUpScene, playerHitScene, fireballScene;
+    [Export] PackedScene foeHitScene;
+    [Export] PackedScene foeDeathScene;
+    [Export] PackedScene playerPowerUpScene;
+    [Export] PackedScene playerHitScene;
+    [Export] PackedScene fireballScene;
+    [Export] PackedScene shockwaveScene;
+    [Export] PackedScene beeemScene;
 
     // -- overrides --
     public override void _Ready()
@@ -15,6 +21,8 @@ public partial class FeedbackSystem:Node
         EventSystem.FoeDied += FoeDied;
         EventSystem.FoeHit += FoeHit;
         EventSystem.FireballUsed += FireballUsed;
+        EventSystem.ShockwaveUsed += ShockwaveUsed;
+        EventSystem.BeeemUsed += BeeemUsed;
     }
 
     void PowerChanged(Vector3 pos, Vector3 rot)
@@ -40,6 +48,16 @@ public partial class FeedbackSystem:Node
     void FireballUsed(Vector3 pos, Vector3 rot)
     {
         SpawnThingy(fireballScene, pos, rot);
+    }
+
+    void ShockwaveUsed(Vector3 pos, Vector3 rot)
+    {
+        SpawnThingy(shockwaveScene, pos);
+    }
+
+    void BeeemUsed(Vector3 pos, Vector3 rot)
+    {
+        SpawnThingy(beeemScene, pos, rot);
     }
     
     // -- helpers --

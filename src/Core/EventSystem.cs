@@ -14,4 +14,6 @@ public class EventSystem
     
     // -- Ability stuff --
     public static PositionalThingy FireballUsed;
+    public static PositionalThingy ShockwaveUsed;
+    public static PositionalThingy BeeemUsed;
 }
