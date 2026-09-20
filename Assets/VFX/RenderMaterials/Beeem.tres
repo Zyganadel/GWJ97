@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://scqfnp5e3o23"]
+
+[ext_resource type="Shader" uid="uid://li02pqmn15qk" path="res://Assets/VFX/Shaders/Beeem.tres" id="1_wleh5"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_wleh5")
+shader_parameter/InnerColour = Color(0.978067, 0.718479, 0.73495, 1)
+shader_parameter/OuterColour2 = Color(0.381026, 0.00137, 0.603385, 1)
+shader_parameter/GradientPower = 0.125
+shader_parameter/AlphaFresnel = 1.0
