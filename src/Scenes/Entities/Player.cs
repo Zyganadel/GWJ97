@@ -18,6 +18,8 @@ public partial class Player : Node3D
 
     private Vector2 direction = new Vector2(0, 0);
 
+    private bool attacking = false;
+
     //Runs twice per frame for the X and Z axis velocities. calculates velocity based on previous frame and current buttons pressed.
     private float velocityChangeCalc(float movementInput, float currentVelocity, double delta)
     {
@@ -95,17 +97,8 @@ public partial class Player : Node3D
         {
             GetNode<PowerComponent>("PowerComponent").BumpPower();
         }
-        if (@event.IsActionPressed("Ability1")) {
-            if (GetNode<PowerComponent>("PowerComponent").PowerLevel < 2) {
-                Node3D punchInstance = (Node3D)punchScene.Instantiate();
-                punchInstance.Position = new Vector3((float)(0.35 * direction.X), 0, (float)(0.35 * direction.Y));
-                AddChild(punchInstance);
-            } else {
-
-            }
-
-        }
-        if (@event.IsReleased()) {
+        if (@event.IsReleased())
+        {
             if (Input.IsActionPressed("Forward"))
             {
                 GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Forward");
@@ -119,16 +112,37 @@ public partial class Player : Node3D
                 GetNode<AnimatedSprite3D>("AnimatedSprite3D").FlipH = false;
                 GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Side");
             }
-            if (Input.IsActionPressed("Left")) {
+            if (Input.IsActionPressed("Left"))
+            {
                 GetNode<AnimatedSprite3D>("AnimatedSprite3D").FlipH = true;
                 GetNode<AnimatedSprite3D>("AnimatedSprite3D").Play("Side");
             }
+        }
+        if (!GetNode<Timer>("AttackCooldown").IsStopped() || attacking)
+        {
+            return;
+        }
+        if (@event.IsActionPressed("Ability1")) {
+            attacking = true;
+            if (GetNode<PowerComponent>("PowerComponent").PowerLevel < 2) {
+                Node3D punchInstance = (Node3D)punchScene.Instantiate();
+                punchInstance.Position = new Vector3((float)(0.35 * direction.X), 0, (float)(0.35 * direction.Y));
+                AddChild(punchInstance);
+            } else {
+
+            }
+
         }
     }
 
     void hurtboxOnHitTaken(int damage)
     {
         GD.Print("Player Hit");
+    }
+
+    void onAttackTimout() {
+        GetNode<Timer>("AttackCooldown").Start(0.5);
+        attacking = false;
     }
 
 }

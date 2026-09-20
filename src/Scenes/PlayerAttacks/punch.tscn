@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c2wfrufsrrbo2"]
 
-[ext_resource type="Script" uid="uid://d2mvxysphgc8m" path="res://src/GDScript/SelfDeletingNode.gd" id="1_bct1a"]
 [ext_resource type="Script" uid="uid://c5ux5ep2l73n7" path="res://src/Scenes/PlayerAttacks/Punch.cs" id="1_km7aq"]
+[ext_resource type="Script" uid="uid://btctxnadio21g" path="res://src/GDScript/SelfDeletingAttack.gd" id="2_bct1a"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_km7aq"]
 radius = 0.31
@@ -12,22 +12,21 @@ radius = 0.3095703
 height = 0.9948015
 
 [node name="Punch" type="Node3D" unique_id=312758659]
-script = ExtResource("1_bct1a")
+script = ExtResource("2_bct1a")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1213343035]
 transparency = 0.36
 mesh = SubResource("CapsuleMesh_km7aq")
 
-[node name="Area3D" type="Area3D" parent="." unique_id=1399258157]
+[node name="Hitbox" type="Area3D" parent="." unique_id=1399258157]
 script = ExtResource("1_km7aq")
 team = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=22771075]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=22771075]
 shape = SubResource("CapsuleShape3D_d7i6v")
 
 [node name="Timer" type="Timer" parent="." unique_id=833049244]
 wait_time = 0.5
 autostart = true
 
-[connection signal="area_entered" from="Area3D" to="Area3D" method="OnAreaEntered"]
-[connection signal="timeout" from="Timer" to="." method="OnTimeout"]
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="OnAreaEntered"]

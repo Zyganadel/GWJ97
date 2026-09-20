@@ -233,3 +233,7 @@ shape = SubResource("CapsuleShape3D_qwtfx")
 
 [node name="PowerComponent" type="Node" parent="." unique_id=513737327]
 script = ExtResource("4_xgn1b")
+
+[node name="AttackCooldown" type="Timer" parent="." unique_id=456617258]
+wait_time = 0.5
+one_shot = true

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b8c8e8n8tk8uj" path="res://src/Scenes/Entities/player.tscn" id="1_ofwiw"]
 [ext_resource type="PackedScene" uid="uid://b4lww57ehve2c" path="res://src/Scenes/Entities/enemy.tscn" id="2_mj803"]
-[ext_resource type="PackedScene" uid="uid://dya1063d767ga" path="res://src/Scenes/hud.tscn" id="3_jib8t"]
+[ext_resource type="PackedScene" uid="uid://djd2sjybpn446" path="res://src/Scenes/hud.tscn" id="3_jib8t"]
 [ext_resource type="PackedScene" uid="uid://c2wfrufsrrbo2" path="res://src/Scenes/PlayerAttacks/punch.tscn" id="3_n5lwl"]
 
 [sub_resource type="Gradient" id="Gradient_1sfxk"]
